@@ -1,5 +1,6 @@
 package edu.maine.usm.cos.durkee.mytasklist;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -8,8 +9,21 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 public class TaskListActivity extends AppCompatActivity {
+
+
+
+
+    private ListView listView;
+
+    private String[] tasks;
+
+    {
+        tasks = new String[]{"number 1", "number 2", "BLAHH Blah blah blah blah"};
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,12 +32,22 @@ public class TaskListActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
+        
+        listView = findViewById(R.id.Task_List_View);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,tasks);
+        listView.setAdapter(adapter);
+
+
+
+
+        
+
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                openNewTaskScreen();
             }
         });
     }
@@ -48,5 +72,9 @@ public class TaskListActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void openNewTaskScreen(){
+        Intent intent = new Intent(this,NewTaskActivity.class);
+        startActivity(intent);
     }
 }
